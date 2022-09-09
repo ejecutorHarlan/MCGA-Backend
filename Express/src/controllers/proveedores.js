@@ -2,7 +2,7 @@ const Proveedores = require ('../models/proveedores')
 
 const getAll = (req, res) => {
     Proveedores.find({ isDeleted: false })
-      .then((data) => res.json({ data }))
+      .then((data) => res.status(200).json({ data }))
       .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
 }
 
@@ -15,8 +15,8 @@ const create = (req, res) => {
     };
 
     Proveedores.create(newProv)
-        .then((data) => res.json({ msg: "Provider added: ", data }))
-        .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
+        .then((data) => res.status(201).json({ msg: "Provider added: ", data }))
+        .catch((err) => res.status(400).json({ msg: `Error: ${err}` }));
 };
 
 const update = (req, res) => {
@@ -26,8 +26,8 @@ const update = (req, res) => {
         description: req.body.description,
     };
     Proveedores.findByIdAndUpdate(req.params.id, provUpdate)
-    .then((data) => res.json({ msg: "Provider updated: ", data}))
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}`}));
+    .then((data) => res.status(201).json({ msg: "Provider updated: ", data}))
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}`}));
 }
 
 const toDelete = (req, res) => {
@@ -35,8 +35,8 @@ const toDelete = (req, res) => {
         isDeleted: true
     };
     Proveedores.findByIdAndUpdate(req.params.id, provDelete)
-    .then((data) => res.json({ msg: "Provider deleted: ", data}))
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}`}));
+    .then((data) => res.status(204).json({ msg: "Provider deleted: ", data}))
+    .catch((err) => res.status(404).json({ msg: `Error: ${err}`}));
 }
 
 const alta = (req, res) => {
@@ -44,8 +44,8 @@ const alta = (req, res) => {
         isDeleted: false
     };
     Proveedores.findByIdAndUpdate(req.params.id, provAlta)
-    .then((data) => res.json({ msg: "Provider registered again: ", data}))
-    .catch((err) => res.status(500).json({ msg: `Error: ${err}`}));
+    .then((data) => res.status(201).json({ msg: "Provider registered again: ", data}))
+    .catch((err) => res.status(400).json({ msg: `Error: ${err}`}));
 }
 
 
