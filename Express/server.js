@@ -4,6 +4,9 @@ const employees = require('./data/empleados.json')
 const empre = require('./data/empresas.json')
 const app = express()
 const port = 3000
+const fs = require("fs")
+
+  app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -68,6 +71,28 @@ function filteredArray(arreglo, rubro) {
   console.log(newArray.every(isBelowThreshold));
 
 }
+
+
+app.post ('products/add', (req, res) => {
+  const newProd = {
+    id:   req.body.id,
+    name: req.body.name,
+    price: req.body.price
+  };
+  if(!newProd.id){
+    res.sendStatus(400)
+  }
+  
+  products.push(newProd);
+  fs.writeFile('./src/models/products.json', JSON.stringify(products), (err) => {
+    //if (err) {res.sendError}
+  })
+  res.JSON(newProd)
+
+})
+
+
+
 
 
 
