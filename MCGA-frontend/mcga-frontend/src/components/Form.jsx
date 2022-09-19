@@ -10,19 +10,23 @@ const Form = ({ addUser }) => {
     const passChange = (e) => {
       setPass(e.target.value)
     }
+    
+    function handleSubmit(e) {
+      e.preventDefault();
+    }
+
 
   return (
-    
+    <form onSubmit={handleSubmit}>
       <div>
         <input type="text" placeholder="Default User" required="required" value={user} onChange={(e) => userChange(e)} />
         <input type="password" placeholder="Default Password" required="required" value={pass} onChange={(e) => passChange(e)} />
 
-        <button onClick={e => {
-              console.log ('El usuario es:',  user, 'y a password es:', pass)
-            }}>Enviar usuario y pass a la consola</button>
+        <button onClick={e =>  {console.log ('El usuario es:',  user, 'y a password es:', pass)}}>
+          Enviar usuario y pass a la consola
+        </button>
       </div>
-   
-
+    </form>
   );
 };
 
